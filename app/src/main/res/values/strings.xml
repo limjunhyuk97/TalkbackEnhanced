@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">TalkbackEnhanced</string>
+    <string name="talkbackenhance_description">TalkbackEnhanced. Retrieves strings and speak those strings proper way in regard of context.</string>
+</resources>
