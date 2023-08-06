@@ -53,12 +53,17 @@ public class TalkbackEnhanced extends AccessibilityService {
     @Override
     public void onAccessibilityEvent(AccessibilityEvent accessibilityEvent) {
 
-        if(accessibilityEvent.getEventType() == AccessibilityEvent.TYPE_VIEW_CLICKED) {
+        if(accessibilityEvent.getEventType() == AccessibilityEvent.TYPE_VIEW_CLICKED && accessibilityEvent.getSource() != null) {
 
             AccessibilityNodeInfo targetNode= accessibilityEvent.getSource();
+            AccessibilityNodeInfo rootNode = targetNode.getParent();
 
             Log.d(TAG, targetNode != null ? targetNode.toString() : "null");
-            Log.d(TAG, targetNode.getParent().toString());
+            if(targetNode != null) Log.d(TAG, targetNode.getParent().toString());
+
+            ContextEstimator contextEstimator = new ContextEstimator(rootNode, targetNode);
+            String context = contextEstimator.getEstimatedContext();
+            Log.d(TAG, context);
 
             if(accessibilityEvent.getContentDescription() != null ) {
                 tts.speech(accessibilityEvent.getContentDescription().toString());
